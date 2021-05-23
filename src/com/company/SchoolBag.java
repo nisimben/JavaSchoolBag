@@ -6,13 +6,11 @@ import java.util.List;
 
 public class SchoolBag {
     public int maxWeigth;
-    public Set<ExersiceBook>exersiceBookSet = new HashSet<>();
 
     @Override
     public String toString() {
         return "SchoolBag{" +
                 "maxWeigth=" + maxWeigth +
-                ", exersiceBookSet=" + exersiceBookSet +
                 ", list=" + list +
                 '}';
     }
@@ -22,13 +20,21 @@ public class SchoolBag {
     public SchoolBag(int maxWeigth) {
         this.maxWeigth = maxWeigth;
     }
-    public void addTo(Item item) {
+    public boolean included(ExersiceBook item){
+        for (Item i:
+             list) {
+            if (i instanceof ExersiceBook && item.profession.equals(((ExersiceBook) i).profession)){
+                return true;
+            }
 
-        for(Item i :list) {
-            if (i instanceof ExersiceBook && !((ExersiceBook) item).profession.equals(((ExersiceBook) i).profession)){
+        }
+        return false;
+    }
+    public void addTo(Item item) {
+            if (item instanceof ExersiceBook && !included(((ExersiceBook) item))){
                 list.add(item);
             }
-            else if (i instanceof Sandwitch){
+            else if (item instanceof Sandwitch){
                 list.add(item);
             }
             else {
@@ -37,4 +43,4 @@ public class SchoolBag {
         }
     }
 
-}
+
